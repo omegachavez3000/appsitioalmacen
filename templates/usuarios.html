@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+        <!-- Menú de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Almacén Escolar</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/salidas">Salidas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios">Usuarios</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    
+    <div class="container">
+        <h1 class="mt-5">Gestión de Usuarios</h1>
+        
+        <!-- Mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Formulario para agregar un nuevo usuario -->
+        <form action="/agregar_usuario" method="POST" class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="dni">DNI</label>
+                    <input type="text" class="form-control" id="dni" name="dni" required>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" class="form-control" id="nombres" name="nombres" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="cargo">Cargo</label>
+                    <select class="form-control" id="cargo" name="cargo" required>
+                        <option value="Docente">Docente</option>
+                        <option value="Tutor">Tutor</option>
+                        <option value="Secretaria">Secretaria</option>
+                        <option value="Best">Best</option>
+                        <option value="Auxiliar">Auxiliar</option>
+                        <option value="Administrativo">Administrativo</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="observacion">Observación</label>
+                    <input type="text" class="form-control" id="observacion" name="observacion">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+        </form>
+        
+        <!-- Tabla para mostrar los usuarios registrados -->
+        <h2>Usuarios Registrados</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombres</th>
+                    <th>Cargo</th>
+                    <th>Observación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario[0] }}</td>
+                    <td>{{ usuario[1] }}</td>
+                    <td>{{ usuario[2] }}</td>
+                    <td>{{ usuario[3] }}</td>
+                    <td>
+                        <a href="/editar_usuario/{{ usuario[0] }}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="/eliminar_usuario/{{ usuario[0] }}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

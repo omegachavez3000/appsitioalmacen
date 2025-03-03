@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Editar Usuario</h1>
+        
+        <!-- Formulario para editar un usuario -->
+        <form action="/editar_usuario/{{ usuario[0] }}" method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="dni">DNI</label>
+                    <input type="text" class="form-control" id="dni" name="dni" value="{{ usuario[0] }}" readonly>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" class="form-control" id="nombres" name="nombres" value="{{ usuario[1] }}" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="cargo">Cargo</label>
+                    <select class="form-control" id="cargo" name="cargo" required>
+                        <option value="Docente" {% if usuario[2] == "Docente" %}selected{% endif %}>Docente</option>
+                        <option value="Tutor" {% if usuario[2] == "Tutor" %}selected{% endif %}>Tutor</option>
+                        <option value="Secretaria" {% if usuario[2] == "Secretaria" %}selected{% endif %}>Secretaria</option>
+                        <option value="Best" {% if usuario[2] == "Best" %}selected{% endif %}>Best</option>
+                        <option value="Auxiliar" {% if usuario[2] == "Auxiliar" %}selected{% endif %}>Auxiliar</option>
+                        <option value="Administrativo" {% if usuario[2] == "Administrativo" %}selected{% endif %}>Administrativo</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="observacion">Observación</label>
+                    <input type="text" class="form-control" id="observacion" name="observacion" value="{{ usuario[3] }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
