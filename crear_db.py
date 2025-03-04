@@ -1,6 +1,6 @@
 import sqlite3
 
-# Conectar a la base de datos
+# Conectar a la base de datos para halllar datos
 conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
