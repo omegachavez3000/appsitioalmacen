@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify,redirect, url_for, flash
 import sqlite3
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Necesario para usar flash messages
@@ -182,5 +183,8 @@ def eliminar_usuario(dni):
     flash('Usuario eliminado correctamente.', 'success')
     return redirect(url_for('usuarios'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#   app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))  # Render asignará el puerto automáticamente
+    app.run(host="0.0.0.0", port=port, debug=True)
